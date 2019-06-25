@@ -1,6 +1,8 @@
 *.project
 *.pydevproject
-dts-tf/chkpt/
-dts-tf/lm_char/
+*.pyc
+log.txt
+chkpt/
+lm_char/
 
 
