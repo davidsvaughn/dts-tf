@@ -299,7 +299,7 @@ class HANModel(BaseModel):
                                             )
         
         ####################################################################################################
-        ''' word level '''
+        ''' word level : Level 1'''
         
         word_level_inputs = outputs
         self.log_tensor(word_level_inputs, name='word_level_inputs')
@@ -347,7 +347,7 @@ class HANModel(BaseModel):
                 self._alpha_word = shrinker.expand(self._alpha_word)
                 
         ####################################################################################################
-        ''' sentence level '''
+        ''' sentence level : Level 2'''
         
         sentence_inputs_shape = tf.cast( [self.document_size, self.sentence_size, word_output_dim] , tf.int32 )
         sentence_inputs = tf.reshape( word_level_output, shape=sentence_inputs_shape )
@@ -394,18 +394,6 @@ class HANModel(BaseModel):
             with tf.variable_scope('dropout'):
                 x = layers.dropout(x, keep_prob=self.keep_prob)
                 
-        ####################################################################################################
-        ''' auxiliary information '''
-#         self.aux_inputs = tf.placeholder(tf.float32, shape=[None, None], name="aux_inputs")
-#         
-#         aux_combine = mc.Combine(self.aux_inputs, 
-#                                  aux_dim=512, 
-#                                  input_dim=sent_output_dim, 
-#                                  FLAGS=self.FLAGS)
-#         x = aux_combine(x)
-#         self.update_tensors(aux_combine)
-        
-        ####################################################################################################
         ''' final dense layer '''
         w_init, b_init = mc.default_initializers(std=self.FLAGS.model_std, bias=self.FLAGS.model_b)
         
