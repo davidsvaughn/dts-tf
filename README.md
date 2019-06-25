@@ -1,2 +1,2 @@
-# dts-tf
+# dts_tf
 Deep Text Scoring - TensorFlow
