@@ -29,7 +29,7 @@ https://danijar.com/variable-sequence-lengths-in-tensorflow/
 # config_file = 'config/flat18.conf'
 
 # config_file = 'config/han_pool.conf'
-config_file = 'config/han18.conf'
+config_file = 'config/han.conf'
 
 # config_file = 'config/flat_insuff.conf'
 # config_file = 'config/han_insuff.conf'
