@@ -60,7 +60,7 @@ import utils as U
 import kappa as K
 
 from vocab import Vocab
-from text_reader import GlobReader, TextParser, FieldParser, EssayBatcher, ResponseBatcher, REGEX_NUM
+from text_reader import GlobReader, TextParser, FieldParser,  ResponseBatcher, REGEX_NUM
 
 import model.models as mod
 import model.restore_variables as rv
