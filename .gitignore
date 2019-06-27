@@ -6,7 +6,7 @@ chkpt/
 
 papers/*.pdf
 
-embeddings/*/*.txt
+embeddings/*/*
 
 data/*/*.txt
 data/*/*.tok
