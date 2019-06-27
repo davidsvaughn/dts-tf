@@ -11,8 +11,6 @@ https://danijar.com/variable-sequence-lengths-in-tensorflow/
 ###########################################################################################
 
 # python -u train.py | tee log.txt
-# sudo python -u train.py | tee log.txt
-# sudo python -u train.py | tee log.txt | grep -Ev '(bfc_allocator)'
 
 ''' TensorBoard '''
 # tensorboard --logdir=mod --port 6006 --debugger_port 6064
@@ -119,16 +117,15 @@ essay_file = os.path.join(FLAGS.data_dir, FLAGS.text_pat).format(pid)
 embed_matrix=None
 if FLAGS.embed.word:
     ''' load Glove word embeddings, along with word vocab '''
-    embed_matrix, word_vocab = Vocab.load_word_embeddings_ORIG(FLAGS.embed_path, 
+    embed_matrix, word_vocab = Vocab.load_word_embeddings_ORIG(os.path.join(FLAGS.word_embed_dir, FLAGS.embed_path), 
                                                                FLAGS.embed_dim, 
                                                                essay_file, 
                                                                min_freq=FLAGS.min_word_count, 
                                                                spell_corr=FLAGS.spell_corr)
-#     embed_matrix, word_vocab = Vocab.load_word_embeddings(FLAGS.embed_path, FLAGS.embed_dim, essay_file, min_freq=FLAGS.min_word_count)
     char_vocab, max_word_length = None, None
     print('Embedding matrix shape: {}'.format(embed_matrix.shape))
 else:
-    vocab_file = os.path.join(FLAGS.data_dir, FLAGS.vocab_file)
+    vocab_file = os.path.join(FLAGS.char_embed_dir, FLAGS.vocab_file)
     word_vocab, char_vocab, max_word_length = Vocab.load_vocab(vocab_file)
 FLAGS.max_word_length = max_word_length
     
@@ -456,7 +453,7 @@ with graph.as_default(), session as sess:
                                 ]
         print('\nRESTORING CHAR WEIGHTS...')
         [print(var.name) for var in variables_to_restore]
-        rv.restore_vars(sess, variables_to_restore, chkpt_dir=FLAGS.char_embed_chkpt)
+        rv.restore_vars(sess, variables_to_restore, chkpt_dir=os.path.abspath(os.path.join(FLAGS.char_embed_dir, FLAGS.char_embed_chkpt)))
         print('DONE.\n')
 
     ################################################################

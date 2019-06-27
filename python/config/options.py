@@ -78,13 +78,16 @@ def get_parser(default_config=None):
     
     p.add("--rnn_new", action='store_true', help="")
     p.add("--sparse_words", action='store_true', help="")
-
+    
+    p.add("--embed_type", type=str, default='word', required=True, help="word|char")
+    p.add("--embed_dir", type=str, metavar='<str>', default=None, help="")
+#     p.add("--word_embed_dir", type=str, metavar='<str>', default=None, help="")
+#     p.add("--char_embed_dir", type=str, metavar='<str>', default=None, help="")
+    
     p.add("--char_embed_size", type=int, metavar='<int>', default=15, help='dimensionality of character embeddings')
     p.add("-kw", "--kernel_widths", type=str, metavar='<str>', default='[1,2,3,4,5,6,7]', help="")
     p.add("-kf", "--kernel_features", type=str, metavar='<str>', default='[50,100,150,200,200,200,200]', help="")
     p.add("--char_embed_chkpt", type=str, metavar='<str>', default=None, help="")
-    
-    p.add("--embed_type", type=str, default='word', required=True, help="word|char")
     
     p.add("--trim_words", action='store_true', help="")
     p.add("--trim_chars", action='store_true', help="")

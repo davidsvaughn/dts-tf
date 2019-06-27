@@ -187,6 +187,9 @@ def parse_config(config_file, parser):
                            'char':FLAGS.embed_type=='char', 
                            'word':FLAGS.embed_type=='word' })
     
+    FLAGS.word_embed_dir = os.path.join(FLAGS.embed_dir, 'word')
+    FLAGS.char_embed_dir = os.path.join(FLAGS.embed_dir, 'char')
+    
     feats = ['kernel_widths','kernel_features','rnn_cells','rnn_sizes','rnn_bis','attn_sizes','attn_depths','attn_temps','pads','learning_rates']
     for feat in feats:
         if feat in FLAGS and FLAGS[feat]:

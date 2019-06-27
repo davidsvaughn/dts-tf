@@ -1,0 +1,381 @@
+[1m[32mRAND_SEED == 1013288083[0m
+{'attn_b': 0.0,
+ 'attn_coef': 0.01,
+ 'attn_depth': 1,
+ 'attn_depths': [1, 1],
+ 'attn_size': 0,
+ 'attn_sizes': [0, 0],
+ 'attn_std': None,
+ 'attn_temp': 1.0,
+ 'attn_temps': [1, 1],
+ 'attn_type': -1,
+ 'attn_vis': False,
+ 'augment': False,
+ 'aux_dir': None,
+ 'batch_size': 32,
+ 'batcher': 'ResponseBatcher',
+ 'bidirectional': False,
+ 'bucket': None,
+ 'char_embed_chkpt': '/home/david/code/python/dts-tf/lm_char/mod2_600-15',
+ 'char_embed_size': 15,
+ 'chkpt_dir': '/home/david/code/python/dts-tf/chkpt/54183/mod_0',
+ 'config': 'config/han.conf',
+ 'cpad': 'post',
+ 'cwd': '/home/david/code/python/dts-tf/python',
+ 'data_dir': '/home/david/data/ats/ets_2018',
+ 'drop_sign': 1.0,
+ 'dropout': 0.66,
+ 'embed': {'char': False, 'type': 'word', 'word': True},
+ 'embed_dim': 300,
+ 'embed_path': '../embeddings/word/wikigiga.fasttext.sg.300d.txt',
+ 'embed_type': 'word',
+ 'epoch_unfreeze_emb': 50,
+ 'epoch_unfreeze_filt': 50,
+ 'epoch_unfreeze_word': 0,
+ 'epochs': 50,
+ 'ets18': True,
+ 'fast_sample': False,
+ 'forget_bias': 0.0,
+ 'id_dir': '/home/david/data/ats/ets_2018/54183',
+ 'item_id': '54183',
+ 'json_dir': None,
+ 'keep_unk': False,
+ 'kernel_features': [25, 50, 75, 100, 100, 100, 100],
+ 'kernel_widths': [1, 2, 3, 4, 5, 6, 7],
+ 'learning_rate': 0.001,
+ 'learning_rates': None,
+ 'load_chkpt_dir': None,
+ 'load_model': False,
+ 'load_test': True,
+ 'load_valid': True,
+ 'log_file': '/home/david/code/python/dts-tf/python/log.txt',
+ 'loss': 'qwk',
+ 'lr_decay': None,
+ 'max_grad_norm': 2.0,
+ 'max_text_length': None,
+ 'mean_pool': False,
+ 'min_cut': 0.33,
+ 'min_word_count': 2,
+ 'model': 'HANModel',
+ 'model_b': 0.0,
+ 'model_std': None,
+ 'new_split': False,
+ 'no_clean': False,
+ 'no_shuffle': False,
+ 'optimizer': 'adam',
+ 'pads': ['post', 'pre'],
+ 'peepholes': False,
+ 'pickle_data': False,
+ 'print_every': 5,
+ 'print_shapes': False,
+ 'rand_seed': 1013288083,
+ 'rhn_highway_layers': 3,
+ 'rhn_inputs': False,
+ 'rhn_kronecker': False,
+ 'rnn_bis': [True, True],
+ 'rnn_cell': 'lstm',
+ 'rnn_cells': ['rhn', 'lstm'],
+ 'rnn_dropout': True,
+ 'rnn_layers': 2,
+ 'rnn_new': True,
+ 'rnn_size': 300,
+ 'rnn_sizes': [300, 300],
+ 'roc': False,
+ 'sample_upto': 100000,
+ 'save_model': False,
+ 'save_test': False,
+ 'save_valid': False,
+ 'skip_connections': False,
+ 'spad': 'pre',
+ 'sparse_words': True,
+ 'spell_corr': False,
+ 'split_sentences': True,
+ 'src_pat': None,
+ 'tensor_vol': 50000,
+ 'tensorboard': False,
+ 'test_cut': 0.15,
+ 'test_id_file': '/home/david/data/ats/ets_2018/54183/test_ids_0.txt',
+ 'test_ids': None,
+ 'test_pat': '{0}/test_ids{1}.txt',
+ 'test_y': None,
+ 'test_yint': None,
+ 'text_pat': '{0}/text.big.tok',
+ 'tokenize': True,
+ 'train_id_file': None,
+ 'train_ids': None,
+ 'train_initial_state': False,
+ 'train_pat': None,
+ 'trait': '0',
+ 'trim_chars': False,
+ 'trim_words': True,
+ 'valid_cut': 0.2,
+ 'valid_id_file': '/home/david/data/ats/ets_2018/54183/valid_ids_0.txt',
+ 'valid_ids': None,
+ 'valid_pat': '{0}/valid_ids{1}.txt',
+ 'vocab_file': 'vocab_n250.txt',
+ 'wpad': 'post'}
+Saving FLAGS to: /home/david/code/python/dts-tf/chkpt/54183/mod_0/han.conf
+TOTAL: 5050 word embeddings of dim 300
+Embedding matrix shape: (5052, 300)
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+
+SCORES:	[1. 2. 3. 4.]
+COUNTS:	[3656 4371  963  190]	= 9180
+SAMPLE:	[0.33795485 0.33201826 0.43944472 1.        ]
+COUNTS:	[1235 1451  423  190]	= 3299
+YMIN=1.0	YMAX=4.0
+TEST SET ITEMS [u'3222221'] MISSING FROM TRAIN SET!
+
+TEST QWK (int):	0.7023
+TEST QWK (flt):	0.7331
+
+NUM PARAMS = 4041001
+==================================	EPOCH 1		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+
+	inputs	[37 30 46]
+	word_level_lengths	[1110]
+	word_embedded	[ 37  30  46 300]
+	word_level_inputs	[1110   46  300]
+	sps_idx	[428   1]
+	word_level_inputs_2	[428  46 300]
+	word_level_lengths_2	[428]
+	word_encoder_output	[428  46 600]
+	word_level_output	[428 600]
+	word_level_output_2	[1110  600]
+	sentence_inputs	[ 37  30 600]
+	sentence_level_lengths	[37]
+	sentence_encoder_output	[ 37  30 600]
+	sentence_level_output	[ 37 600]
+	outputs	[37  1]
+
+	qwk=0.027|loss=0.895|wps=3523|bs=34	qwk=0.238|loss=0.378|wps=4724|bs=12	qwk=0.427|loss=0.550|wps=5352|bs=28	qwk=0.594|loss=0.378|wps=6113|bs=49	qwk=0.617|loss=0.290|wps=6479|bs=23	qwk=0.619|loss=0.283|wps=6861|bs=38	qwk=0.456|loss=0.490|wps=7011|bs=26	qwk=0.704|loss=0.205|wps=7164|bs=29SKIP : len(d.w)==0!!!!
+	qwk=0.666|loss=0.492|wps=7307|bs=17	qwk=0.649|loss=0.204|wps=7334|bs=28	qwk=0.653|loss=0.346|wps=7501|bs=29	qwk=0.757|loss=0.268|wps=7570|bs=28	qwk=0.696|loss=0.327|wps=7652|bs=29	qwk=0.617|loss=0.306|wps=7824|bs=31	qwk=0.567|loss=0.467|wps=7999|bs=28	qwk=0.655|loss=0.242|wps=8034|bs=33	qwk=0.600|loss=0.580|wps=8018|bs=20	qwk=0.643|loss=0.347|wps=8064|bs=48SKIP : len(d.w)==0!!!!
+	qwk=0.700|loss=0.300|wps=8148|bs=35
+STILL SAVING VALID BATCHES!!!!!
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+STILL SAVING TEST BATCHES!!!!!
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+
+
+VALID SET :	289 [87, 114, 52, 36]	(10 batches)
+TEST SET :	230 [88, 114, 24, 4]	(8 batches)
+
+[CURRENT]	Epoch 1 	TRAIN Loss : 0.4327	TRAIN Kappa : 0.5925	1.2min|271wps
+	loss=0.2389|qwk=0.703220256512
+	loss=1.0|qwk=0.673450216948
+314.786370026 responses per second
+	loss=0.3724|qwk=0.730168125189
+
+VALID SET :	289 [87, 114, 52, 36]
+TEST SET :	230 [88, 114, 24, 4]
+[CURRENT]	Epoch 1 	VALID Kappa : [1m[32m0.6898[0m [0.6395]	TEST Kappa : [1m[32m0.6946[0m [0.6735]
+[BEST]		Epoch 1 	VALID Kappa : [1m[32m0.6898[0m [0.6395]	TEST Kappa : [1m[32m0.6946[0m [0.6735]
+[BEST]		Epoch 1 	TEST Kappa : [1m[32m0.6946[0m [0.6735]
+
+==================================	EPOCH 2		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.714|loss=0.329|wps=6840|bs=37	qwk=0.736|loss=0.242|wps=7676|bs=30	qwk=0.622|loss=0.438|wps=7592|bs=18SKIP : len(d.w)==0!!!!
+	qwk=0.753|loss=0.325|wps=8221|bs=46	qwk=0.711|loss=0.353|wps=8035|bs=33	qwk=0.715|loss=0.244|wps=8161|bs=24	qwk=0.734|loss=0.108|wps=7991|bs=16	qwk=0.643|loss=0.344|wps=7959|bs=26	qwk=0.690|loss=0.255|wps=8079|bs=19	qwk=0.725|loss=0.218|wps=8054|bs=21	qwk=0.772|loss=0.457|wps=7912|bs=21	qwk=0.713|loss=0.266|wps=7906|bs=18	qwk=0.747|loss=0.233|wps=8170|bs=52	qwk=0.739|loss=0.373|wps=8338|bs=38	qwk=0.736|loss=0.246|wps=8433|bs=55	qwk=0.650|loss=0.339|wps=8401|bs=34	qwk=0.646|loss=0.281|wps=8442|bs=30	qwk=0.668|loss=0.303|wps=8277|bs=45	qwk=0.700|loss=0.322|wps=8254|bs=31	qwk=0.686|loss=0.416|wps=8209|bs=38
+[CURRENT]	Epoch 2 	TRAIN Loss : 0.3077	TRAIN Kappa : 0.7086	0.56min|8256wps
+	loss=0.2349|qwk=0.717539526364
+	loss=1.0|qwk=0.689889520222
+384.427175044 responses per second
+	loss=0.3738|qwk=0.748182809273
+[CURRENT]	Epoch 2 	VALID Kappa : [1m[32m0.7053[0m [0.6454]	TEST Kappa : [1m[32m0.7186[0m [0.6727]
+[BEST]		Epoch 2 	VALID Kappa : [1m[32m0.7053[0m [0.6454]	TEST Kappa : [1m[32m0.7186[0m [0.6727]
+[BEST]		Epoch 2 	TEST Kappa : [1m[32m0.7186[0m [0.6727]
+
+==================================	EPOCH 3		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.689|loss=0.318|wps=7057|bs=21	qwk=0.731|loss=0.266|wps=7098|bs=29	qwk=0.724|loss=0.303|wps=7297|bs=19SKIP : len(d.w)==0!!!!
+	qwk=0.737|loss=0.235|wps=7698|bs=23	qwk=0.723|loss=0.336|wps=7920|bs=39	qwk=0.701|loss=0.359|wps=7997|bs=36	qwk=0.734|loss=0.310|wps=8231|bs=34	qwk=0.676|loss=0.281|wps=8257|bs=25	qwk=0.745|loss=0.240|wps=8148|bs=39	qwk=0.766|loss=0.154|wps=8314|bs=31	qwk=0.724|loss=0.264|wps=8367|bs=41	qwk=0.691|loss=0.554|wps=8513|bs=19	qwk=0.770|loss=0.208|wps=8640|bs=43	qwk=0.743|loss=0.248|wps=8533|bs=27	qwk=0.758|loss=0.136|wps=8684|bs=34SKIP : len(d.w)==0!!!!
+	qwk=0.690|loss=0.413|wps=8645|bs=29	qwk=0.706|loss=0.461|wps=8599|bs=47	qwk=0.724|loss=0.514|wps=8507|bs=14	qwk=0.682|loss=0.334|wps=8469|bs=21
+[CURRENT]	Epoch 3 	TRAIN Loss : 0.291	TRAIN Kappa : 0.7229	0.53min|8541wps
+	loss=0.2103|qwk=0.735923078657
+	loss=1.0|qwk=0.710053985568
+406.873222379 responses per second
+	loss=0.3827|qwk=0.737100984126
+[CURRENT]	Epoch 3 	VALID Kappa : [1m[32m0.7247[0m [0.6955]	TEST Kappa : [1m[32m0.7111[0m [0.6613]
+[BEST]		Epoch 3 	VALID Kappa : [1m[32m0.7247[0m [0.6955]	TEST Kappa : [1m[32m0.7111[0m [0.6613]
+[BEST]		Epoch 2 	TEST Kappa : [1m[32m0.7186[0m [0.6727]
+
+==================================	EPOCH 4		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.635|loss=0.280|wps=5614|bs=14	qwk=0.709|loss=0.327|wps=6404|bs=25	qwk=0.716|loss=0.332|wps=6912|bs=48	qwk=0.682|loss=0.152|wps=7207|bs=16	qwk=0.756|loss=0.224|wps=7761|bs=42	qwk=0.763|loss=0.121|wps=7895|bs=18	qwk=0.748|loss=0.264|wps=8047|bs=28	qwk=0.779|loss=0.184|wps=8027|bs=21	qwk=0.685|loss=0.334|wps=8096|bs=26	qwk=0.773|loss=0.134|wps=8290|bs=37	qwk=0.749|loss=0.295|wps=8358|bs=43	qwk=0.731|loss=0.217|wps=8556|bs=44	qwk=0.752|loss=0.237|wps=8653|bs=29SKIP : len(d.w)==0!!!!
+	qwk=0.702|loss=0.224|wps=8514|bs=17	qwk=0.702|loss=0.356|wps=8548|bs=15	qwk=0.711|loss=0.213|wps=8527|bs=37	qwk=0.778|loss=0.252|wps=8532|bs=21	qwk=0.737|loss=0.268|wps=8400|bs=30	qwk=0.786|loss=0.235|wps=8430|bs=26	qwk=0.756|loss=0.254|wps=8494|bs=30
+[CURRENT]	Epoch 4 	TRAIN Loss : 0.2731	TRAIN Kappa : 0.7347	0.54min|8524wps
+	loss=0.1799|qwk=0.757133253161
+	loss=1.0|qwk=0.720232401896
+405.852730319 responses per second
+	loss=0.3905|qwk=0.746371129801
+[CURRENT]	Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+
+==================================	EPOCH 5		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.701|loss=0.326|wps=6147|bs=25	qwk=0.775|loss=0.177|wps=8093|bs=36	qwk=0.781|loss=0.233|wps=8889|bs=63	qwk=0.769|loss=0.225|wps=8712|bs=21	qwk=0.705|loss=0.423|wps=8824|bs=24	qwk=0.784|loss=0.298|wps=9120|bs=39	qwk=0.698|loss=0.376|wps=9181|bs=35	qwk=0.701|loss=0.187|wps=9178|bs=29	qwk=0.761|loss=0.117|wps=8993|bs=27	qwk=0.713|loss=0.140|wps=8929|bs=31	qwk=0.685|loss=0.404|wps=8647|bs=13	qwk=0.706|loss=0.414|wps=8643|bs=42	qwk=0.700|loss=0.371|wps=8572|bs=23	qwk=0.818|loss=0.148|wps=8618|bs=39	qwk=0.755|loss=0.221|wps=8424|bs=31	qwk=0.674|loss=0.471|wps=8413|bs=30	qwk=0.757|loss=0.243|wps=8446|bs=30	qwk=0.734|loss=0.184|wps=8444|bs=22	qwk=0.711|loss=0.219|wps=8435|bs=32
+[CURRENT]	Epoch 5 	TRAIN Loss : 0.2775	TRAIN Kappa : 0.7375	0.54min|8532wps
+	loss=0.1542|qwk=0.742187295436
+	loss=1.0|qwk=0.685344375912
+392.786941427 responses per second
+	loss=0.4477|qwk=0.662732624716
+[CURRENT]	Epoch 5 	VALID Kappa : [1m[32m0.7171[0m [0.7071]	TEST Kappa : [1m[32m0.6478[0m [0.6302]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+
+==================================	EPOCH 6		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.665|loss=0.290|wps=7566|bs=32	qwk=0.776|loss=0.448|wps=7314|bs=13	qwk=0.714|loss=0.294|wps=6949|bs=29SKIP : len(d.w)==0!!!!
+	qwk=0.748|loss=0.292|wps=7474|bs=49	qwk=0.708|loss=0.364|wps=7710|bs=22	qwk=0.746|loss=0.163|wps=7742|bs=30SKIP : len(d.w)==0!!!!
+	qwk=0.746|loss=0.187|wps=7823|bs=31	qwk=0.769|loss=0.323|wps=8003|bs=36	qwk=0.770|loss=0.217|wps=8051|bs=40	qwk=0.740|loss=0.228|wps=8160|bs=31	qwk=0.742|loss=0.375|wps=8193|bs=40	qwk=0.701|loss=0.284|wps=8197|bs=28	qwk=0.703|loss=0.415|wps=8292|bs=52	qwk=0.681|loss=0.342|wps=8310|bs=45	qwk=0.792|loss=0.242|wps=8305|bs=33	qwk=0.745|loss=0.191|wps=8330|bs=28	qwk=0.706|loss=0.151|wps=8298|bs=31	qwk=0.794|loss=0.243|wps=8320|bs=27	qwk=0.719|loss=0.349|wps=8327|bs=30	qwk=0.742|loss=0.284|wps=8291|bs=37
+[CURRENT]	Epoch 6 	TRAIN Loss : 0.2784	TRAIN Kappa : 0.7365	0.56min|8316wps
+	loss=0.1615|qwk=0.747528263672
+	loss=1.0|qwk=0.717592321797
+404.541454729 responses per second
+	loss=0.4278|qwk=0.709179782146
+[CURRENT]	Epoch 6 	VALID Kappa : [1m[32m0.7344[0m [0.7086]	TEST Kappa : [1m[32m0.6903[0m [0.6692]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+
+==================================	EPOCH 7		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.766|loss=0.241|wps=7786|bs=32	qwk=0.796|loss=0.214|wps=8873|bs=36	qwk=0.733|loss=0.397|wps=8627|bs=21	qwk=0.792|loss=0.211|wps=8659|bs=45	qwk=0.789|loss=0.273|wps=8713|bs=21	qwk=0.766|loss=0.331|wps=8979|bs=40	qwk=0.777|loss=0.064|wps=8891|bs=31	qwk=0.812|loss=0.160|wps=8643|bs=24	qwk=0.832|loss=0.173|wps=8683|bs=48	qwk=0.774|loss=0.167|wps=8780|bs=22	qwk=0.742|loss=0.286|wps=8854|bs=19	qwk=0.728|loss=0.524|wps=8902|bs=18	qwk=0.694|loss=0.467|wps=8877|bs=25	qwk=0.736|loss=0.379|wps=8798|bs=31	qwk=0.779|loss=0.292|wps=8769|bs=34	qwk=0.766|loss=0.491|wps=8695|bs=29	qwk=0.719|loss=0.183|wps=8666|bs=12	qwk=0.662|loss=0.332|wps=8730|bs=17	qwk=0.683|loss=0.666|wps=8609|bs=26
+[CURRENT]	Epoch 7 	TRAIN Loss : 0.2621	TRAIN Kappa : 0.7589	0.52min|8592wps
+	loss=0.2115|qwk=0.724174126712
+	loss=1.0|qwk=0.718228664549
+402.607935883 responses per second
+	loss=0.4223|qwk=0.739340860423
+[CURRENT]	Epoch 7 	VALID Kappa : [1m[32m0.7217[0m [0.6873]	TEST Kappa : [1m[32m0.7148[0m [0.684]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+
+==================================	EPOCH 8		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.778|loss=0.297|wps=5290|bs=44	qwk=0.762|loss=0.240|wps=5692|bs=23SKIP : len(d.w)==0!!!!
+	qwk=0.795|loss=0.173|wps=6547|bs=37	qwk=0.728|loss=0.356|wps=6851|bs=31	qwk=0.783|loss=0.537|wps=7180|bs=20	qwk=0.673|loss=0.228|wps=7539|bs=31SKIP : len(d.w)==0!!!!
+	qwk=0.751|loss=0.261|wps=7907|bs=30	qwk=0.696|loss=0.480|wps=8008|bs=45	qwk=0.756|loss=0.263|wps=8013|bs=19	qwk=0.813|loss=0.244|wps=8127|bs=29	qwk=0.762|loss=0.256|wps=8286|bs=41	qwk=0.831|loss=0.185|wps=8298|bs=20	qwk=0.736|loss=0.452|wps=8429|bs=15	qwk=0.814|loss=0.125|wps=8411|bs=28	qwk=0.810|loss=0.138|wps=8483|bs=30	qwk=0.777|loss=0.159|wps=8402|bs=41	qwk=0.757|loss=0.144|wps=8368|bs=24	qwk=0.779|loss=0.323|wps=8425|bs=13SKIP : len(d.w)==0!!!!
+	qwk=0.721|loss=0.332|wps=8443|bs=24	qwk=0.800|loss=0.157|wps=8467|bs=29
+[CURRENT]	Epoch 8 	TRAIN Loss : 0.2436	TRAIN Kappa : 0.7699	0.54min|8488wps
+	loss=0.1658|qwk=0.729652181664
+	loss=1.0|qwk=0.697459130828
+392.543099291 responses per second
+	loss=0.4777|qwk=0.666518629628
+[CURRENT]	Epoch 8 	VALID Kappa : [1m[32m0.7156[0m [0.7049]	TEST Kappa : [1m[32m0.6526[0m [0.6255]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 4 	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+
+==================================	EPOCH 9		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.814|loss=0.210|wps=6847|bs=29	qwk=0.753|loss=0.177|wps=7840|bs=26	qwk=0.779|loss=0.232|wps=7865|bs=35	qwk=0.794|loss=0.288|wps=8076|bs=55	qwk=0.721|loss=0.145|wps=8478|bs=38	qwk=0.808|loss=0.121|wps=8612|bs=28	qwk=0.797|loss=0.210|wps=8842|bs=61	qwk=0.779|loss=0.262|wps=8616|bs=33	qwk=0.767|loss=0.395|wps=8558|bs=48	qwk=0.745|loss=0.228|wps=8549|bs=23	qwk=0.782|loss=0.172|wps=8608|bs=27	qwk=0.817|loss=0.143|wps=8643|bs=29	qwk=0.755|loss=0.343|wps=8736|bs=59	qwk=0.796|loss=0.238|wps=8828|bs=37	qwk=0.694|loss=0.284|wps=8825|bs=44	qwk=0.783|loss=0.152|wps=8813|bs=30	qwk=0.790|loss=0.208|wps=8865|bs=32	qwk=0.757|loss=0.290|wps=8771|bs=35SKIP : len(d.w)==0!!!!
+	qwk=0.829|loss=0.305|wps=8827|bs=25
+[CURRENT]	Epoch 9 	TRAIN Loss : 0.2317	TRAIN Kappa : 0.7793	0.51min|8851wps
+	loss=0.2123|qwk=0.698787619894
+	loss=1.0|qwk=0.698812523329
+404.449263409 responses per second
+	loss=0.4484|qwk=0.73328727106
+[CURRENT]	Epoch 9 	VALID Kappa : [1m[32m0.699[0m [0.6696]	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 10		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.773|loss=0.349|wps=6730|bs=30	qwk=0.807|loss=0.153|wps=8417|bs=25SKIP : len(d.w)==0!!!!
+	qwk=0.775|loss=0.347|wps=7776|bs=44	qwk=0.789|loss=0.135|wps=7976|bs=34	qwk=0.872|loss=0.191|wps=8043|bs=27	qwk=0.789|loss=0.250|wps=8039|bs=18	qwk=0.755|loss=0.235|wps=8281|bs=42	qwk=0.842|loss=0.063|wps=8456|bs=34SKIP : len(d.w)==0!!!!
+	qwk=0.723|loss=0.235|wps=8276|bs=24	qwk=0.831|loss=0.171|wps=8416|bs=25	qwk=0.744|loss=0.250|wps=8440|bs=36	qwk=0.780|loss=0.231|wps=8441|bs=30	qwk=0.804|loss=0.106|wps=8542|bs=29	qwk=0.804|loss=0.078|wps=8606|bs=25	qwk=0.753|loss=0.332|wps=8603|bs=19	qwk=0.783|loss=0.243|wps=8530|bs=18	qwk=0.808|loss=0.202|wps=8431|bs=22	qwk=0.731|loss=0.511|wps=8412|bs=30	qwk=0.772|loss=0.332|wps=8484|bs=42
+[CURRENT]	Epoch 10 	TRAIN Loss : 0.2262	TRAIN Kappa : 0.7901	0.54min|8579wps
+	loss=0.2654|qwk=0.672687874016
+	loss=1.0|qwk=0.679947505021
+404.529709136 responses per second
+	loss=0.4411|qwk=0.721015246456
+[CURRENT]	Epoch 10 	VALID Kappa : [1m[32m0.6762[0m [0.6291]	TEST Kappa : [1m[32m0.7293[0m [0.7052]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 11		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.821|loss=0.171|wps=8513|bs=33	qwk=0.819|loss=0.255|wps=7909|bs=30	qwk=0.833|loss=0.164|wps=7209|bs=33	qwk=0.843|loss=0.159|wps=7148|bs=20	qwk=0.785|loss=0.155|wps=7499|bs=31	qwk=0.772|loss=0.231|wps=7847|bs=27	qwk=0.805|loss=0.133|wps=7652|bs=12	qwk=0.790|loss=0.279|wps=7273|bs=40	qwk=0.825|loss=0.146|wps=7440|bs=41	qwk=0.781|loss=0.221|wps=7606|bs=28	qwk=0.793|loss=0.231|wps=7659|bs=31	qwk=0.836|loss=0.122|wps=7731|bs=32SKIP : len(d.w)==0!!!!
+	qwk=0.770|loss=0.373|wps=7571|bs=28	qwk=0.815|loss=0.121|wps=7645|bs=23	qwk=0.776|loss=0.165|wps=7613|bs=25	qwk=0.734|loss=0.259|wps=7694|bs=27	qwk=0.784|loss=0.186|wps=7668|bs=39	qwk=0.734|loss=0.239|wps=7716|bs=44	qwk=0.782|loss=0.243|wps=7711|bs=26	qwk=0.787|loss=0.092|wps=7684|bs=23
+[CURRENT]	Epoch 11 	TRAIN Loss : 0.2204	TRAIN Kappa : 0.7954	0.58min|7802wps
+	loss=0.1832|qwk=0.740944436802
+	loss=1.0|qwk=0.731096854589
+402.156324731 responses per second
+	loss=0.4606|qwk=0.736224873899
+[CURRENT]	Epoch 11 	VALID Kappa : [1m[32m0.7368[0m [0.7259]	TEST Kappa : [1m[32m0.7202[0m [0.6937]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 12		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.832|loss=0.178|wps=7559|bs=40	qwk=0.871|loss=0.166|wps=7021|bs=9	qwk=0.827|loss=0.211|wps=7527|bs=43	qwk=0.818|loss=0.209|wps=7658|bs=35SKIP : len(d.w)==0!!!!
+	qwk=0.845|loss=0.163|wps=7796|bs=42	qwk=0.785|loss=0.195|wps=7680|bs=40	qwk=0.748|loss=0.247|wps=7984|bs=44	qwk=0.814|loss=0.271|wps=8006|bs=39SKIP : len(d.w)==0!!!!
+	qwk=0.773|loss=0.365|wps=8103|bs=35	qwk=0.843|loss=0.238|wps=8067|bs=42	qwk=0.853|loss=0.108|wps=8195|bs=32SKIP : len(d.w)==0!!!!
+	qwk=0.783|loss=0.247|wps=7983|bs=21	qwk=0.795|loss=0.172|wps=7990|bs=49	qwk=0.831|loss=0.238|wps=8078|bs=42	qwk=0.800|loss=0.239|wps=8100|bs=31	qwk=0.784|loss=0.211|wps=8217|bs=23	qwk=0.785|loss=0.252|wps=8125|bs=21	qwk=0.829|loss=0.219|wps=8114|bs=35	qwk=0.799|loss=0.245|wps=8111|bs=24
+[CURRENT]	Epoch 12 	TRAIN Loss : 0.1977	TRAIN Kappa : 0.8129	0.55min|8158wps
+	loss=0.2413|qwk=0.721822552384
+	loss=1.0|qwk=0.712828806009
+372.642606396 responses per second
+	loss=0.4689|qwk=0.726405236659
+[CURRENT]	Epoch 12 	VALID Kappa : [1m[32m0.7181[0m [0.6753]	TEST Kappa : [1m[32m0.7111[0m [0.679]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 13		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.830|loss=0.229|wps=6532|bs=33	qwk=0.816|loss=0.147|wps=7550|bs=41	qwk=0.784|loss=0.199|wps=7204|bs=24	qwk=0.743|loss=0.142|wps=7103|bs=23	qwk=0.775|loss=0.121|wps=7350|bs=30	qwk=0.845|loss=0.187|wps=7691|bs=47	qwk=0.805|loss=0.167|wps=7431|bs=22	qwk=0.810|loss=0.285|wps=7844|bs=30	qwk=0.802|loss=0.225|wps=7811|bs=28	qwk=0.734|loss=0.171|wps=7762|bs=32	qwk=0.803|loss=0.239|wps=7897|bs=42	qwk=0.787|loss=0.240|wps=7959|bs=17	qwk=0.848|loss=0.166|wps=8098|bs=42SKIP : len(d.w)==0!!!!
+	qwk=0.768|loss=0.231|wps=8103|bs=36	qwk=0.812|loss=0.395|wps=8216|bs=28	qwk=0.779|loss=0.245|wps=8247|bs=29	qwk=0.798|loss=0.331|wps=8325|bs=26	qwk=0.782|loss=0.286|wps=8332|bs=15	qwk=0.769|loss=0.203|wps=8240|bs=17
+[CURRENT]	Epoch 13 	TRAIN Loss : 0.2152	TRAIN Kappa : 0.8021	0.56min|8216wps
+	loss=0.2987|qwk=0.669453660065
+	loss=1.0|qwk=0.675358142724
+399.947952655 responses per second
+	loss=0.5031|qwk=0.702700901999
+[CURRENT]	Epoch 13 	VALID Kappa : [1m[32m0.6725[0m [0.6353]	TEST Kappa : [1m[32m0.7088[0m [0.6573]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 14		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.785|loss=0.176|wps=6808|bs=30	qwk=0.792|loss=0.177|wps=7846|bs=41	qwk=0.831|loss=0.207|wps=7653|bs=19	qwk=0.767|loss=0.240|wps=7675|bs=30	qwk=0.877|loss=0.138|wps=7789|bs=36	qwk=0.833|loss=0.177|wps=7976|bs=35	qwk=0.804|loss=0.156|wps=8044|bs=46	qwk=0.821|loss=0.186|wps=8074|bs=34	qwk=0.883|loss=0.057|wps=8336|bs=40	qwk=0.828|loss=0.129|wps=8384|bs=37	qwk=0.820|loss=0.203|wps=8453|bs=23SKIP : len(d.w)==0!!!!
+	qwk=0.831|loss=0.190|wps=8381|bs=30	qwk=0.831|loss=0.282|wps=8375|bs=32	qwk=0.745|loss=0.262|wps=8302|bs=32	qwk=0.835|loss=0.150|wps=8373|bs=49	qwk=0.848|loss=0.194|wps=8412|bs=30SKIP : len(d.w)==0!!!!
+	qwk=0.830|loss=0.149|wps=8480|bs=47	qwk=0.729|loss=0.348|wps=8409|bs=29	qwk=0.824|loss=0.240|wps=8421|bs=28
+[CURRENT]	Epoch 14 	TRAIN Loss : 0.1972	TRAIN Kappa : 0.8227	0.55min|8377wps
+	loss=0.2642|qwk=0.701161129054
+	loss=1.0|qwk=0.713389293577
+403.239832377 responses per second
+	loss=0.5033|qwk=0.721090477465
+[CURRENT]	Epoch 14 	VALID Kappa : [1m[32m0.7071[0m [0.6854]	TEST Kappa : [1m[32m0.7308[0m [0.7138]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
+==================================	EPOCH 15		==================================
+	SHUFFLING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	READING...	 /home/david/data/ats/ets_2018/54183/text.big.tok
+	qwk=0.832|loss=0.165|wps=6592|bs=31	qwk=0.840|loss=0.153|wps=7216|bs=39	qwk=0.835|loss=0.157|wps=7141|bs=14	qwk=0.837|loss=0.175|wps=6997|bs=12	qwk=0.807|loss=0.257|wps=7536|bs=36	qwk=0.826|loss=0.306|wps=7923|bs=38	qwk=0.768|loss=0.107|wps=8030|bs=23	qwk=0.753|loss=0.302|wps=8047|bs=38	qwk=0.769|loss=0.203|wps=7975|bs=28	qwk=0.788|loss=0.195|wps=8055|bs=30	qwk=0.714|loss=0.232|wps=8066|bs=33	qwk=0.784|loss=0.236|wps=7926|bs=35	qwk=0.791|loss=0.247|wps=8152|bs=29	qwk=0.820|loss=0.193|wps=8302|bs=23	qwk=0.847|loss=0.149|wps=8288|bs=17	qwk=0.838|loss=0.131|wps=8299|bs=30SKIP : len(d.w)==0!!!!
+	qwk=0.729|loss=0.343|wps=8273|bs=31	qwk=0.856|loss=0.114|wps=8214|bs=11	qwk=0.833|loss=0.178|wps=8315|bs=35
+[CURRENT]	Epoch 15 	TRAIN Loss : 0.2031	TRAIN Kappa : 0.8075	0.54min|8337wps
+	loss=0.2713|qwk=0.671854763216
+	loss=1.0|qwk=0.668232381108
+401.466909018 responses per second
+	loss=0.4681|qwk=0.715547888306
+[CURRENT]	Epoch 15 	VALID Kappa : [1m[32m0.6707[0m [0.6374]	TEST Kappa : [1m[32m0.724[0m [0.67]
+[BEST]		Epoch 4 	VALID Kappa : [1m[32m0.7409[0m [0.7185]	TEST Kappa : [1m[32m0.7272[0m [0.7115]
+[BEST]		Epoch 9 	TEST Kappa : [1m[32m0.7317[0m [0.7071]
+
