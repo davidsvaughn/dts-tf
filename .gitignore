@@ -3,6 +3,15 @@
 *.pyc
 log.txt
 chkpt/
+
+papers/*.pdf
+
+embeddings/*/*.txt
+
+data/*/*.txt
+data/*/*.tok
+
+
 lm_char/
 
 
