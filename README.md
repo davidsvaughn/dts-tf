@@ -3,14 +3,14 @@ Deep Text Scoring in TensorFlow
 
 ## Get data from spshare
 - copy files from: `//spshare/users/dvaughn/dts-tf/data` to  `./data`
-- copy files from: '//spshare/users/dvaughn/dts-tf/embeddings' to `./embeddings`
+- copy files from: `//spshare/users/dvaughn/dts-tf/embeddings` to `./embeddings`
 
 
 ## References
 
 ### Code
 
-- [BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT) WordPieces implemened here...
+- [BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT) ....WordPieces implemened here
 - [BERT: Original TensorFlow Code](https://github.com/google-research/bert)
 
 ### Papers
