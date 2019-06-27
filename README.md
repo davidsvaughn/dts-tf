@@ -2,8 +2,8 @@
 Deep Text Scoring in TensorFlow
 
 ## Get data from spshare
-copy files from: //spshare/users/dvaughn/dts-tf/data -> ./data
-copy files from: //spshare/users/dvaughn/dts-tf/embeddings -> ./embeddings
+- copy files from: //spshare/users/dvaughn/dts-tf/data -> ./data
+- copy files from: //spshare/users/dvaughn/dts-tf/embeddings -> ./embeddings
 
 
 ## References
