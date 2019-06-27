@@ -6,6 +6,12 @@ Deep Text Scoring in TensorFlow
 - copy files from: `//spshare/users/dvaughn/dts-tf/embeddings` to `./embeddings`
 
 
+## Run
+```
+cd python
+python -u train.py | tee log.txt
+```
+
 ## References
 
 ### Code
