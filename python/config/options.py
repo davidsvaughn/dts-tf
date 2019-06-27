@@ -81,8 +81,6 @@ def get_parser(default_config=None):
     
     p.add("--embed_type", type=str, default='word', required=True, help="word|char")
     p.add("--embed_dir", type=str, metavar='<str>', default=None, help="")
-#     p.add("--word_embed_dir", type=str, metavar='<str>', default=None, help="")
-#     p.add("--char_embed_dir", type=str, metavar='<str>', default=None, help="")
     
     p.add("--char_embed_size", type=int, metavar='<int>', default=15, help='dimensionality of character embeddings')
     p.add("-kw", "--kernel_widths", type=str, metavar='<str>', default='[1,2,3,4,5,6,7]', help="")
