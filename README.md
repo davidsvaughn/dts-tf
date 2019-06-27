@@ -7,8 +7,8 @@ Deep Text Scoring in TensorFlow
 
 
 ## References
-[BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT)
-[BERT: Original TensorFlow Code](https://github.com/google-research/bert)
+- [BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT)
+- [BERT: Original TensorFlow Code](https://github.com/google-research/bert)
 
 Papers:
 
