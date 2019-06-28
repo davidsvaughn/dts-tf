@@ -36,7 +36,10 @@ def copy_file(src, dst):
     shutil.copy2(src, dst)
     
 def save_log(flags):
-    copy_file(flags.log_file, flags.chkpt_dir)
+    try:
+        copy_file(flags.log_file, flags.chkpt_dir)
+    except IOError:
+        pass    
     
 def save_local_config(flags, verbose=True):
     loc_file = os.path.abspath(os.path.join(flags.chkpt_dir, os.path.basename(flags.config)))

@@ -167,7 +167,7 @@ def load_embeddings(file, filter_words=None, word_counts=None, verbose=True, spe
     ################################################################
     
     if verbose:
-        print('TOTAL: {} word embeddings of dim {}'.format(len(word2emb), word2emb[next(iter(word2emb))].size))
+        print('\nTOTAL: {} word embeddings of dim {}'.format(len(word2emb), word2emb[next(iter(word2emb))].size))
         
     return word2emb, word_fix
 

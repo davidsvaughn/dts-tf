@@ -11,7 +11,7 @@ def get_parser(default_config=None):
     p.add('--config', required=False, is_config_file=True, default=default_config, help='config file path')
     
     p.add('--model', type=str, required=True, help="Deep Learning Model")
-    p.add('--batcher', type=str, required=True, help="Data Batcher")
+#     p.add('--batcher', type=str, required=True, help="Data Batcher")
     
     p.add("-id", "--item_id", type=str, required=True, help="itemID or modeID")
     p.add("--trait", type=str, required=False, default=None, help="trait")

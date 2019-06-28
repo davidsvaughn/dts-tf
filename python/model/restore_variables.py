@@ -180,17 +180,3 @@ def test2():
 if __name__ == '__main__':
 #     test1()
     test2()
-           
-# Model/FlatModel/char_embed_b/internal_embed/embeddings:0
-# Model/FlatModel/TDNN/conv_2d/w:0
-# Model/FlatModel/TDNN/conv_2d/b:0
-# Model/FlatModel/TDNN/conv_2d_1/w:0
-# Model/FlatModel/TDNN/conv_2d_1/b:0
-
-# varnames_to_restore = ['Model/FlatModel/TDNN/conv_2d/w:0','Model/FlatModel/TDNN/conv_2d/b:0','Model/FlatModel/TDNN/conv_2d_1/w:0','Model/FlatModel/TDNN/conv_2d_1/b:0']
-
-# /tmp/tmpkyVUpL
-# /tmp/tmpy7dhTP
-# /tmp/tmpxvCboJ
-
-# /tmp/tmpBiksCs

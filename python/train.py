@@ -7,11 +7,12 @@ from __future__ import print_function
 
 config_file = 'config/han.conf'
 # config_file = 'config/flat.conf'
-# config_file = 'config/flat18.conf'
 
 #######################################
 ''' RUN COMMAND'''
-# python -u train.py | tee log.txt
+# python train.py
+# --OR--
+# python -u train.py | tee log.txt   (... log will be copied to output folder - preferred)
 
 ''' TensorBoard '''
 # tensorboard --logdir=mod --port 6006 --debugger_port 6064
@@ -57,13 +58,6 @@ import model.restore_variables as rv
 def get_model(model_name):
     return getattr(mod, model_name)
 
-def get_batcher(batcher_name):
-    if batcher_name=='ResponseBatcher':
-        return ResponseBatcher
-    if batcher_name=='EssayBatcher':
-        return EssayBatcher
-    return None
-
 #######################################
 
 FLAGS = config.parse_config(config_file, options.get_parser())
@@ -94,12 +88,6 @@ else:
     U.purge_pattern(FLAGS.chkpt_dir, r'.dvaughn-linux$')
 config.save_local_config(FLAGS)
 config.save_log(FLAGS)
-
-''' setup ATTN_VIS json dir '''
-if FLAGS.attn_vis:
-    attn_vis_path = os.path.join(FLAGS.chkpt_dir,'attn_vis')
-    if not os.path.exists(attn_vis_path): U.mkdirs(attn_vis_path)
-    else: U.clear_path(attn_vis_path)
 
 essay_file = os.path.join(FLAGS.data_dir, FLAGS.text_pat).format(pid)
 
@@ -133,8 +121,7 @@ def create_batcher(essay_file, text_parser, FLAGS, shuf=True, batch_size=None, p
     reader =  GlobReader(essay_file, chunk_size=10000, regex=REGEX_NUM, seed=FLAGS.rand_seed, shuf=shuf)
     fields = {0:'id', score_col:'y', -1:text_parser}
     field_parser = FieldParser(fields, reader=reader, seed=FLAGS.rand_seed)
-    Batcher = get_batcher(FLAGS.batcher)
-    batcher = Batcher(reader=field_parser, FLAGS=FLAGS, tstats=tstats, batch_size=batch_size, pkl=pkl, name=name)
+    batcher = ResponseBatcher(reader=field_parser, FLAGS=FLAGS, tstats=tstats, batch_size=batch_size, pkl=pkl, name=name)
     return batcher
 
 text_parser = TextParser(word_vocab=word_vocab, char_vocab=char_vocab, max_word_length=max_word_length, FLAGS=FLAGS, tokenize=FLAGS.tokenize, keep_unk=FLAGS.keep_unk)
@@ -256,7 +243,8 @@ if test_y is not None:
     kappa_int = U.ikappa(true_y, test_yint, all_y)
     kappa_float = U.nkappa(true_y, test_y)
     
-    print('\nTEST QWK (int):\t{0:0.4f}\nTEST QWK (flt):\t{1:0.4f}\n'.format(kappa_int, kappa_float))
+    print('\nMLT TEST PERFORMANCE (for comparison)...')
+    print('TEST QWK (int):\t{0:0.4f}\nTEST QWK (flt):\t{1:0.4f}\n'.format(kappa_int, kappa_float))
     # sys.exit()
 
 ###############################
@@ -382,6 +370,7 @@ with tf.variable_scope("Model", initializer=initializer) as scope:
         return train_ops[0]
 
 config.save_log(FLAGS)
+
 ############################################################################
 
 saver = tf.train.Saver()
@@ -463,9 +452,6 @@ with graph.as_default(), session as sess:
     num_params = np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()])
     print('NUM PARAMS = {}'.format(num_params))
     ################################################################
-
-    ''' TensorBoard '''
-    #if FLAGS.tensorboard: writer = tf.summary.FileWriter(FLAGS.chkpt_dir, sess.graph)
     
     test_batches, best_test_score = [],-10000
     valid_batches, best_valid_score = [],-10000
@@ -478,7 +464,7 @@ with graph.as_default(), session as sess:
     gnorms = []
     tensor_shapes = None
     w_alphas = None
-    aux_epoch=6 
+#     aux_epoch=6 
     test_valid_ids = set(test_ids).union(set(valid_ids))
     
     while epoch < epochs:
@@ -491,26 +477,7 @@ with graph.as_default(), session as sess:
         FLAGS.is_test = (epoch==1 and len(test_ids)==0 and U.rng.rand()<FLAGS.test_cut)
         
         print('==================================\tEPOCH {}\t\t=================================='.format(epoch))
-        losses, qwks, P, Y, batch, k = [],[],[],[],0,0
-        
-        ''' load auxiliary info '''
-        td_train, td_test = {},{}
-        if model.aux_inputs is not None:
-            for key in ['vector','pred']:
-                fn = os.path.join(FLAGS.aux_dir, '{}_train_{}.npy'.format(key, aux_epoch))
-                td_train[key] = np.load(fn)[()]
-                fn = os.path.join(FLAGS.aux_dir, '{}_test_{}.npy'.format(key, aux_epoch))
-                td_test[key] = np.load(fn)[()]
-                
-        ''' augment data '''
-        if FLAGS.augment:
-            cmd = 'cp {} {}'.format(FLAGS.tmp_train_base, FLAGS.tmp_train_all)
-            print(cmd)
-            os.system(cmd)
-            cmd = 'python augment.py {} 20 1 >> {}'.format(FLAGS.tmp_train_base, FLAGS.tmp_train_all)
-            print(cmd)
-            os.system(cmd)
-            # sys.exit()
+        losses, qwks, TRAIN_PRED, TRAIN_Y, batch, k = [],[],[],[],0,0
                 
         ''' TRAINING LOOP '''
         if FLAGS.fast_sample: 
@@ -546,8 +513,6 @@ with graph.as_default(), session as sess:
                          max_norm: U.get_max_norm(gnorms, default=FLAGS.max_grad_norm),
                          model.seq_len: get_value_like(model.seq_len, b.s),
                          }
-            if model.aux_inputs is not None:
-                feed_dict[model.aux_inputs] = [td_train['vector'][id] for id in b.id]
                 
             train_step, global_norm = train_op(epoch)
             
@@ -570,7 +535,7 @@ with graph.as_default(), session as sess:
             
             losses.append(loss)
             gnorms.append(gnorm)
-            P.extend(np.squeeze(p)); Y.extend(np.squeeze(b.y))
+            TRAIN_PRED.extend(np.squeeze(p)); TRAIN_Y.extend(np.squeeze(b.y))
             
             word_count = batcher.word_count(reset=False)
             sec = U.toc(reset=False)
@@ -578,10 +543,10 @@ with graph.as_default(), session as sess:
             
             if batch % FLAGS.print_every == 0:
                 if ACC:
-                    acc = U.nacc(Y[-k:],P[-k:])
+                    acc = U.nacc(TRAIN_Y[-k:],TRAIN_PRED[-k:])
                     sys.stdout.write('\tacc={0:0.3f}'.format(acc))
                 else:
-                    kappa = U.nkappa(Y[-k:],P[-k:])
+                    kappa = U.nkappa(TRAIN_Y[-k:],TRAIN_PRED[-k:])
                     sys.stdout.write('\tqwk={0:0.3f}'.format(kappa))
                 sys.stdout.write('|loss={0:0.3f}'.format(loss))
                 #sys.stdout.write('|ploss={0:0.3g}'.format(p_loss))
@@ -605,7 +570,7 @@ with graph.as_default(), session as sess:
                 if FLAGS.save_valid:
                     U.write_sequence(FLAGS.valid_id_file, valid_ids)
             else:# pre-loaded valid ids
-                print('\nSTILL SAVING VALID BATCHES!!!!!')
+#                 print('\nSTILL SAVING VALID BATCHES!!!!!')
                 for b in batcher.batch_stream(stop=True,
                                               hit_ids=valid_ids,
                                               sample=False,
@@ -624,7 +589,7 @@ with graph.as_default(), session as sess:
                 if FLAGS.save_test:
                     U.write_sequence(FLAGS.test_id_file, test_ids)
             else:# pre-loaded test_ids
-                print('STILL SAVING TEST BATCHES!!!!!')
+#                 print('STILL SAVING TEST BATCHES!!!!!')
                 for b in batcher.batch_stream(stop=True,
                                               hit_ids=test_ids,
                                               sample=False,
@@ -648,10 +613,10 @@ with graph.as_default(), session as sess:
         sec = U.toc(reset=True)
         wps = int(word_count/sec)
         if ACC:
-            ACC_train = U.nacc(Y,P)
+            ACC_train = U.nacc(TRAIN_Y,TRAIN_PRED)
             train_msg = 'Epoch {0} \tTRAIN Loss : {1:0.4}\tTRAIN Accuracy : {2:0.4}\t{3:0.2g}min|{4}wps'.format(epoch, np.mean(losses), ACC_train, float(sec)/60.0, wps)
         else:
-            QWK_train = U.nkappa(Y,P)
+            QWK_train = U.nkappa(TRAIN_Y,TRAIN_PRED)
             train_msg = 'Epoch {0} \tTRAIN Loss : {1:0.4}\tTRAIN Kappa : {2:0.4}\t{3:0.2g}min|{4}wps'.format(epoch, np.mean(losses), QWK_train, float(sec)/60.0, wps)
         print('\n[CURRENT]\t' + train_msg)
         
@@ -660,8 +625,8 @@ with graph.as_default(), session as sess:
         ''' VALIDATION '''
         
         ''' loop '''
-        losses, qwks, P, Y, I, batch, k = [],[],[],[],[],0,0
-        #for b in valid_batches 
+        losses, qwks, VALID_PRED, VALID_Y, I, batch, k = [],[],[],[],[],0,0
+
         for b in (valid_batcher.batch_stream(stop=True,
                                             sample=False,
                                             partial=True,
@@ -684,17 +649,17 @@ with graph.as_default(), session as sess:
             
             loss, p = fetch(fetched, ('loss','p'))
             losses.append(loss)
-            p = np.squeeze(p) if b.n>1 else p; P.extend(p[0:b.n])
-            y = np.squeeze(b.y) if b.n>1 else b.y; Y.extend(y[0:b.n])
+            p = np.squeeze(p) if b.n>1 else p; VALID_PRED.extend(p[0:b.n])
+            y = np.squeeze(b.y) if b.n>1 else b.y; VALID_Y.extend(y[0:b.n])
             id = np.squeeze(b.id) if b.n>1 else b.id; I.extend(id[0:b.n])
             
             if batch % FLAGS.print_every == 0:
                 sys.stdout.write('\tloss={0:0.4}'.format(loss))
                 if ACC:
-                    acc = U.nacc(Y[-k:],P[-k:])
+                    acc = U.nacc(VALID_Y[-k:],VALID_PRED[-k:])
                     sys.stdout.write('|acc={0:0.4}\n'.format(acc))
                 else:
-                    kappa = U.nkappa(Y[-k:],P[-k:])
+                    kappa = U.nkappa(VALID_Y[-k:],VALID_PRED[-k:])
 #                     sys.stdout.write('|qwk={0:0.4}\n'.format(kappa))
                     sys.stdout.write('|qwk={}\n'.format(kappa))
                 sys.stdout.flush()
@@ -704,36 +669,29 @@ with graph.as_default(), session as sess:
         #U.write_sequence('/home/david/data/insuff/travis/bw/i1.txt', I)
         I,idx = np.unique(I, return_index=True)
         #U.write_sequence('/home/david/data/insuff/travis/bw/i2.txt', I)
-        Y = np.array(Y, np.float64)[idx]
-        P = np.array(P, np.float64)[idx]
+        VALID_Y = np.array(VALID_Y, np.float64)[idx]
+        VALID_PRED = np.array(VALID_PRED, np.float64)[idx]
         
-        if epoch==1: valid_ystats = U.compute_ystats(Y)
+        if epoch==1: valid_ystats = U.compute_ystats(VALID_Y)
         
         sec = U.toc(reset=False)
-        rps = len(Y)/sec
+        rps = len(VALID_Y)/sec
         print('{} responses per second'.format(rps))
         
         if ACC:
-            ACC_valid = U.nacc(Y,P)
+            ACC_valid = U.nacc(VALID_Y,VALID_PRED)
             SCORE_valid = ACC_valid
         else:
-            QWK_valid = U.nkappa(Y,P)
-            QWK_valid_int = K.ikappa(Y,P,yw)
+            QWK_valid = U.nkappa(VALID_Y,VALID_PRED)
+            QWK_valid_int = K.ikappa(VALID_Y,VALID_PRED,yw)
             SCORE_valid = QWK_valid
         
         ##########################################################################
         ''' TEST '''
         
-        ''' attn_vis '''
-        if FLAGS.attn_vis:
-            json_path = os.path.join(attn_vis_path,'epoch_{}'.format(epoch))
-            if not os.path.exists(json_path):
-                U.mkdirs(json_path)
-            json_files = []
-        
         ''' loop '''
-        losses, qwks, P, Y, S, I, batch, k = [],[],[],[],[],[],0,0
-        #for b in test_batches:
+        losses, qwks, TEST_PRED, TEST_Y, S, I, batch, k = [],[],[],[],[],[],0,0
+
         for b in (test_batcher.batch_stream(stop=True,
                                            sample=False,
                                            partial=True,
@@ -748,8 +706,6 @@ with graph.as_default(), session as sess:
                          model.keep_prob: 1.0,
                          model.seq_len: get_value_like(model.seq_len, b.s),
                          }
-            if model.aux_inputs is not None:
-                feed_dict[model.aux_inputs] = [td_test['vector'][id] for id in b.id]
                 
             fetches = {}
             fetches['loss'] = loss_op
@@ -764,42 +720,19 @@ with graph.as_default(), session as sess:
             
             loss, p = fetch(fetched, ('loss','p'))
             losses.append(loss)
-            p = np.squeeze(p) if b.n>1 else p; P.extend(p[0:b.n])
-            y = np.squeeze(b.y) if b.n>1 else b.y; Y.extend(y[0:b.n])
+            p = np.squeeze(p) if b.n>1 else p; TEST_PRED.extend(p[0:b.n])
+            y = np.squeeze(b.y) if b.n>1 else b.y; TEST_Y.extend(y[0:b.n])
             id = np.squeeze(b.id) if b.n>1 else b.id; I.extend(id[0:b.n])
-#             p = p[0]; P.extend(p[0:b.n])
-#             y = b.y[0]; Y.extend(y[0:b.n])
+
             if FLAGS.tensorboard: writer.add_summary(fetch(fetched,'summary'), step)
-            
-            ################################################################
-            
-            ''' attn_vis files '''
-            if FLAGS.attn_vis:
-                alpha_word, alpha_sent = fetch(fetched, ('alpha_word','alpha_sent'))
-                s_alphas = U.t2l(alpha_sent, b.s[0], b.p[0]) if len(alpha_sent)>0 else None
-                w_alphas = U.tensor2list(alpha_word, b.s, b.p)
-                words_idx = U.tensor2list(b.w, b.s, b.p)
-                words = U.list2list(words_idx, word_vocab.token)
-                  
-                _json_files = U.generate_json_docs(path=json_path,
-                                                   ids=b.id[0:b.n], 
-                                                   targets=np.squeeze(b.y)[0:b.n], 
-                                                   preds=np.squeeze(p)[0:b.n], 
-                                                   words=words, 
-                                                   w_alphas=w_alphas, 
-                                                   s_alphas=s_alphas)
-                json_files.extend(_json_files)
-            
-            ################################################################
-            
             
             if batch % FLAGS.print_every == 0:
                 sys.stdout.write('\tloss={0:0.4}'.format(loss))
                 if ACC:
-                    acc = U.nacc(Y[-k:],P[-k:])
+                    acc = U.nacc(TEST_Y[-k:],TEST_PRED[-k:])
                     sys.stdout.write('|acc={0:0.4}\n'.format(acc))
                 else:
-                    kappa = U.nkappa(Y[-k:],P[-k:])
+                    kappa = U.nkappa(TEST_Y[-k:],TEST_PRED[-k:])
 #                     sys.stdout.write('|qwk={0:0.4}\n'.format(kappa))
                     sys.stdout.write('|qwk={}\n'.format(kappa))
                 sys.stdout.flush()
@@ -807,37 +740,37 @@ with graph.as_default(), session as sess:
         
         ## eliminate duplicate ids
         I,idx = np.unique(I, return_index=True)
-        Y = np.array(Y, np.float64)[idx]
-        P = np.array(P, np.float64)[idx]
+        TEST_Y = np.array(TEST_Y, np.float64)[idx]
+        TEST_PRED = np.array(TEST_PRED, np.float64)[idx]
         
         ## trim item_id off response_id --> make integer
         I = [i.split('_')[0] for i in I]
 #         I = np.array(I, np.int32)
 
         if epoch==1:
-            test_ystats = U.compute_ystats(Y)
+            test_ystats = U.compute_ystats(TEST_Y)
             print('\nVALID SET :\t{} {}'.format(len(valid_ids), list(valid_ystats.c)))
             print('TEST SET :\t{} {}'.format(len(test_ids), list(test_ystats.c)))
         
         if ACC:
-            ACC_test = U.nacc(Y,P)
+            ACC_test = U.nacc(TEST_Y,TEST_PRED)
             SCORE_test = ACC_test
             valid_msg = 'Epoch {0} \tVALID Acc : {3}{2:0.4}{4}\tTEST Acc : {6}{5:0.4}{7}'.format(epoch, np.mean(losses), ACC_valid, U.BColors.BGREEN, U.BColors.ENDC, ACC_test, U.BColors.BGREEN, U.BColors.ENDC)
 
         else:              
-            QWK_test = U.nkappa(Y,P)
-            QWK_test_int = K.ikappa(Y,P,yw)
+            QWK_test = U.nkappa(TEST_Y,TEST_PRED)
+            QWK_test_int = K.ikappa(TEST_Y,TEST_PRED,yw)
             SCORE_test = QWK_test
             valid_msg = 'Epoch {0} \tVALID Kappa : {3}{2:0.4}{4} [{8:0.4}]\tTEST Kappa : {6}{5:0.4}{7} [{9:0.4}]'.format(epoch, np.mean(losses), QWK_valid, U.BColors.BGREEN, U.BColors.ENDC, QWK_test, U.BColors.BGREEN, U.BColors.ENDC, QWK_valid_int, QWK_test_int)
 
         if SCORE_valid>best_valid_score:
             best_valid_score=SCORE_valid
             best_valid_msg=valid_msg
-            if ROC: U.save_roc(FLAGS.roc_test_file, Y, P, I)
+            if ROC: U.save_roc(FLAGS.roc_test_file, TEST_Y, TEST_PRED, I)
             
         if FLAGS.save_model: 
             if best_ckpt_saver.handle(SCORE_valid, sess, global_step):
-                if ROC: U.save_roc(FLAGS.roc_test_file, Y, P, I)
+                if ROC: U.save_roc(FLAGS.roc_test_file, TEST_Y, TEST_PRED, I)
         ''' 
         ## HowTo: load from checkpoint      
         saver.restore(sess, checkmate.get_best_checkpoint(FLAGS.load_chkpt_dir))
@@ -858,15 +791,6 @@ with graph.as_default(), session as sess:
         #print('[CURRENT]\t' + test_msg)
         print('[BEST]\t\t' + best_test_msg + '\n')
         
-        ###############################
-        ''' attn_vis '''
-        if FLAGS.attn_vis:
-            data = {}
-            json_files.sort()
-            data["files"] = json_files
-            json_data = json.dumps(data)
-            with open(os.path.join(json_path, "attn_files.json"), 'w') as f:
-                f.write(json_data)
         
         ###############################
         ''' ADAPT LEARNING RATE ?? '''

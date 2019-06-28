@@ -14,10 +14,9 @@ import tensorflow.contrib.layers as layers
 import utils as U
 
 from model.rwa_cell import RWACell
-from nlp.tensorflow_with_latest_papers.rnn_cell_modern import HighwayRNNCell
+from model.rhn_cell import HighwayRNNCell
 
-from rum.RUM import RUMCell
-
+# from rum.RUM import RUMCell
 # from nlp.rhn.rhn import RHNCell2 as RHNCell
 # from nlp.tensorflow_with_latest_papers import rnn_cell_modern
 # from nlp.rnn_cells.MultiplicativeLSTM import MultiplicativeLSTMCell
@@ -40,8 +39,8 @@ def rnn_unit(args):
     elif args.unit=='gru':
         rnn = tf.nn.rnn_cell.GRUCell
         kwargs = { 'reuse':False }
-    elif args.unit=='rum':
-        rnn = RUMCell
+#     elif args.unit=='rum':
+#         rnn = RUMCell
     elif args.unit=='rwa':
         rnn = RWACell
 #         decay_rate = [0.0]*args.rnn_size
