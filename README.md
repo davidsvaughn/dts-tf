@@ -23,12 +23,14 @@ python -u train.py | tee log.txt
 
 ### Code
 
-- [BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT) ....WordPieces implemened here
+- [tf-lstm-char-cnn](https://github.com/mkroutikov/tf-lstm-char-cnn) ...source of character embedding model
+- [BERT: PyTorch Conversion](https://github.com/huggingface/pytorch-pretrained-BERT) ...WordPieces implemened here
 - [BERT: Original TensorFlow Code](https://github.com/google-research/bert)
 
 ### Papers
 
 - [Hierarchical Attention Networks for Document Classification](https://www.cs.cmu.edu/~./hovy/papers/16HLT-hierarchical-attention-networks.pdf)
-- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
-- [Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation](https://arxiv.org/abs/1609.08144)
-- [Recurrent Highway Networks](https://arxiv.org/abs/1607.03474)
+- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805) ...WordPieces
+- [Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation](https://arxiv.org/abs/1609.08144) ...WordPieces
+- [Recurrent Highway Networks](https://arxiv.org/abs/1607.03474) ... rhn unit
+- [Character-Aware Neural Language Models](https://arxiv.org/abs/1508.06615) ...char embedding model
