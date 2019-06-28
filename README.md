@@ -1,9 +1,10 @@
 # dts-tf
 Deep Text Scoring in TensorFlow
 
-- this code implements either a _flat_ or a 2 level _hierarchical_ RNN model (see paper below: _Hierarchical Attention Networks..._) 
+- this code implements either a _flat_ or a 2 level _hierarchical_ RNN model <br/> (see paper below: _Hierarchical Attention Networks..._) 
 - can operate either on _character_ sequences or _word_ sequences... pretrained embeddings inluded for both
 - everything is controlled through configuration (*.conf) file, which is set at top of train.py: <br/> i.e. `config_file = 'config/han.conf'`
+- several examples, including config files and output logs, are given in `chkpt` folder
 
 ## Get data from spshare
 - copy files from: `//spshare/users/dvaughn/dts-tf/data` to  `./data`
