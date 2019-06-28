@@ -7,8 +7,9 @@ Deep Text Scoring in TensorFlow
 - several examples, including config files and output logs, are given in `chkpt` folder
 
 ## Get data from spshare
-- copy files from: `//spshare/users/dvaughn/dts-tf/data` to  `./data`
 - copy files from: `//spshare/users/dvaughn/dts-tf/embeddings` to `./embeddings`
+- copy files from: `//spshare/users/dvaughn/dts-tf/data` to  `./data`
+- theres more data in `//spshare/users/dvaughn/data` - see the `readme.txt` file and `./scripts` subfolder for more info
 
 
 ## Run
