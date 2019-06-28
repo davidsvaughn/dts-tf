@@ -1,39 +1,28 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-#######################################
-'''
-https://r2rt.com/recurrent-neural-networks-in-tensorflow-iii-variable-length-sequences.html
-https://github.com/yvesx/tf-rnn-pub
-( https://danijar.com/introduction-to-recurrent-networks-in-tensorflow/ )
-https://danijar.com/variable-sequence-lengths-in-tensorflow/
-'''
-###########################################################################################
 
+#######################################
+''' CONFIG FILE '''
+
+config_file = 'config/han.conf'
+# config_file = 'config/flat.conf'
+# config_file = 'config/flat18.conf'
+
+#######################################
+''' RUN COMMAND'''
 # python -u train.py | tee log.txt
 
 ''' TensorBoard '''
 # tensorboard --logdir=mod --port 6006 --debugger_port 6064
 
-''' attn_vis '''
-# python -m SimpleHTTPServer &
-# http://localhost:8000/attn_vis.html
-
-###########################################################################################
-''' config '''
-# config_file = 'config/flat.conf'
-# config_file = 'config/han.conf'
-
-# config_file = 'config/flat18.conf'
-
-# config_file = 'config/han_pool.conf'
-config_file = 'config/han.conf'
-
-# config_file = 'config/flat_insuff.conf'
-# config_file = 'config/han_insuff.conf'
-
-# config_file = 'config/han_unc.conf'
-
+#######################################
+''' refs....
+https://r2rt.com/recurrent-neural-networks-in-tensorflow-iii-variable-length-sequences.html
+https://github.com/yvesx/tf-rnn-pub
+( https://danijar.com/introduction-to-recurrent-networks-in-tensorflow/ )
+https://danijar.com/variable-sequence-lengths-in-tensorflow/
+'''
 #######################################
 
 import os
